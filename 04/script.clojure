@@ -1,0 +1,54 @@
+Script started on 2024-02-09 15:39:24-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="209" LINES="69"]
+]0;lvm5@maroon07: ~/214/projects/04/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/04/clojure/src[00m$ cat factorial.clj
+;;;; Name: Lily McAboy
+;;;; Date: 2/14/2024
+;;;; CS 214 Project 04
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns factorial)                                 ; name the program
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn factorial[usr_num]
+  (if (<= usr_num 1)
+    1 ; base case
+    (* usr_num (factorial(- usr_num 1))) ;multiply the number by the recursive function of the number -1 and etc. 
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn -main []
+  (println "Computing the factorial of a user given number.\n")
+  (print "Enter your desired factorial number: ") (flush)
+  (let
+    [ n (int(read))]
+    (printf "The factorial of %d is %d \n" n (factorial n))
+    )
+  )
+
+              
+]0;lvm5@maroon07: ~/214/projects/04/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/04/clojure/src[00m$ clojure -m factorial
+Computing the factorial of a user given number.
+
+Enter your desired factorial number: 5
+The factorial of 5 is 120 
+]0;lvm5@maroon07: ~/214/projects/04/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/04/clojure/src[00m$ clojure -m factorial
+Computing the factorial of a user given number.
+
+Enter your desired factorial number: 6
+The factorial of 6 is 720 
+]0;lvm5@maroon07: ~/214/projects/04/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/04/clojure/src[00m$ clojure -m factorial
+Computing the factorial of a user given number.
+
+Enter your desired factorial number: 7
+The factorial of 7 is 5040 
+]0;lvm5@maroon07: ~/214/projects/04/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/04/clojure/src[00m$ clojure -m factorial
+Computing the factorial of a user given number.
+
+Enter your desired factorial number: 3
+The factorial of 3 is 6 
+]0;lvm5@maroon07: ~/214/projects/04/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/04/clojure/src[00m$ exit
+exit
+
+Script done on 2024-02-09 15:39:51-05:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,70 @@
+Script started on 2024-02-23 08:47:53-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="77" LINES="24"]
+]0;lvm5@remotel1: ~/214/projects/06/clojure[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/06/clojure[00m$ cat /s      cat src/root.clj 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Getting roots of quadratic formula using Clojure
+;;; Name: Lily McAboy
+;;; Date: 2/22/2024
+;;; CS 214 Project 06
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns root)
+
+(defn root [a b c]
+  (if (not= a 0)
+    (let [discr (- (* b b) (* 4 c))]
+      (if (>= discr 0)
+        [(/ (+ (- b) (Math/sqrt discr)) (* 2 a))
+         (/ (- (- b) (Math/sqrt discr)) (* 2 a))]
+        (do 
+          (println "b^2 - 4ac is negative")
+          [0 0])
+        )
+      )
+    (do 
+      (println "a cannot be 0. Try again.")
+      [0 0])
+    )
+  )
+
+(defn -main[]
+  (print "To get the quadratic roots, first enter a: ") (flush)
+  (let 
+    [ a (read-line)
+     b (read-line)
+     c (read-line)
+     ] 
+    (let [roots (root
+                      (Double/parseDouble a)
+                      (Double/parseDouble b)
+                      (Double/parseDouble c))]
+      (if (not= roots[0 0])
+                (do 
+                  (println "First Root: " (first roots))
+                  (println "Second Root: " (second roots))
+                  )
+                (println "Roots are invalid.")
+                )
+      )
+    )
+  )
+]0;lvm5@remotel1: ~/214/projects/06/clojure[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/06/clojure[00m$ clojure -m root
+To get the quadratic roots, first enter a: 1
+25
+1
+First Root:  -0.04006420562288859
+Second Root:  -24.95993579437711
+]0;lvm5@remotel1: ~/214/projects/06/clojure[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/06/clojure[00m$ clojure -m root
+To get the quadratic roots, first enter a: 2
+50
+2
+First Root:  -0.020016025651315772
+Second Root:  -24.979983974348684
+]0;lvm5@remotel1: ~/214/projects/06/clojure[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/06/clojure[00m$ clojure -m root
+To get the quadratic roots, first enter a: 1
+8
+2
+First Root:  -0.25834261322605867
+Second Root:  -7.741657386773941
+]0;lvm5@remotel1: ~/214/projects/06/clojure[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/06/clojure[00m$ exit
+
+Script done on 2024-02-23 08:48:32-05:00 [COMMAND_EXIT_CODE="0"]
