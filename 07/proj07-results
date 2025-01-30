@@ -1,0 +1,225 @@
+Script started on 2024-02-28 13:44:56-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="150" LINES="69"]
+]0;lvm5@maroon07: ~/214/projects/07[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07[00m$ cat readArray.java
+/*
+ * Array Processing Using Java
+ * Name: Lily McAboy
+ * Date: 2/27/2024
+ * CS 214 Project 07
+ */
+
+import java.util.Scanner;
+
+public class array {
+
+	public static void printArray(double[] theArray, int itsSize){
+		for(int i = 0; i < itsSize; i++){
+			System.out.println(theArray[i]);
+		}
+	}
+
+	public static double[] readArray(int itsSize){
+		double[] theArray = new double[itsSize];
+		Scanner keyboard = new Scanner(System.in);
+		for(int i = 0; i < itsSize; i++){
+			theArray[i] = keyboard.nextDouble();
+		}
+		return theArray;
+	}
+
+
+	public static void main(String[] args){
+		System.out.println("If you would like to put values in the array, please specify a size: ");
+		Scanner keyboard = new Scanner(System.in);
+
+		int arraySize = keyboard.nextInt();
+
+		System.out.println("And please start typing in your desired values in this array: ");
+
+		double[] arrayNumbers = readArray(arraySize);
+
+		System.out.println("Here are the values of your array: ");
+		printArray(arrayNumbers, arraySize);
+
+	}
+}
+]0;lvm5@maroon07: ~/214/projects/07[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07[00m$ java readArray.java
+If you would like to put values in the array, please specify a size: 
+4
+And please start typing in your desired values in this array: 
+1
+2
+3
+4
+Here are the values of your array: 
+1.0
+2.0
+3.0
+4.0
+]0;lvm5@maroon07: ~/214/projects/07[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07[00m$ exit
+
+Script done on 2024-02-28 13:45:25-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-02-28 14:21:55-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="150" LINES="69"]
+]0;lvm5@maroon07: ~/214/projects/07[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07[00m$ cat readingarray.adb
+------------------------------------------------------------------
+-- Reading and printing an array in Ada
+-- Name: Lily McAboy
+-- Date: 2/27/2024
+-- CS 214 Project 07
+--
+-- --------------------------------------------------------------
+--
+--
+--
+
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+procedure readingArray is 
+
+	type Vector is array(Positive range <>) of Float;
+
+	mySize : Integer;
+
+	myArray : Vector(1 .. mySize);
+
+	procedure printArray(arr: Vector; mySize : in Integer) is
+	begin 
+		for I in 1 .. mySize
+		loop
+			Put(arr(I));
+			New_Line;
+		end loop; 
+		return; 
+
+	end printArray;
+
+
+	procedure readArray(arr: Vector; mySize : in Integer) is
+	begin 
+		for I in 1 .. mySize
+		loop 
+			Get(myArray(I));
+		end loop; 
+		return;
+	end readArray;
+
+begin 
+
+	Put("Enter the desired size of your array: ");
+	Get(mySize);
+	New_Line;
+	Put("Start entering your desired float numbers into the array: ");
+	New_Line;
+
+	readArray(myArray, mySize);
+
+	New_Line;
+
+	Put("Here are the results of your array: ");
+	New_Line;
+	printArray(myArray, mySize);
+
+end readingArray;
+]0;lvm5@maroon07: ~/214/projects/07[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07[00m$ gnatmake readingarray.adb
+gnatmake: "readingarray" up to date.
+]0;lvm5@maroon07: ~/214/projects/07[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07[00m$ ./readingarray
+Enter the desired size of your array: 4
+
+Start entering your desired float numbers into the array: 
+1.0
+2.0
+3.0
+4.0
+
+Here are the results of your array: 
+ 1.00000E+00
+ 2.00000E+00
+ 3.00000E+00
+ 4.00000E+00
+]0;lvm5@maroon07: ~/214/projects/07[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07[00m$ exit
+
+Script done on 2024-02-28 14:22:24-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-03-01 14:35:03-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="124" LINES="44"]
+]0;lvm5@maroon07: ~/214/projects/07/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07/clojure[00m$ cat src/readingarray.clj
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Reading in and printing an array in Clojure
+;;; Name: Lily McAboy
+;;; Date: 2/27/2024
+;;; CS 214 Project 07 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns readingarray)
+
+(defn readArray [mySize]
+  (vec (repeatedly mySize
+                   #(let [line (read-line)]
+                      (Double/parseDouble (.trim line))))))
+
+(defn printArray [myArray]
+  (doseq [elem myArray]
+    (println elem)))
+
+(defn -main []
+  (println "Enter your desired array size and then add your array values: ")
+  (let [theSize (Integer. (read-line))
+        theArray (readArray theSize)]
+  (println "Here are the values of your array: ")
+  (printArray theArray)))
+]0;lvm5@maroon07: ~/214/projects/07/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07/clojure[00m$ clojure -m readingarray
+Enter your desired array size and then add your array values: 
+4
+1
+2
+3
+4
+Here are the values of your array: 
+1.0
+2.0
+3.0
+4.0
+]0;lvm5@maroon07: ~/214/projects/07/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07/clojure[00m$ exit
+
+Script done on 2024-03-01 14:35:21-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-02-29 19:59:25-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+]0;lvm5@remotel1: ~/214/projects/07[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/07[00m$ cat readingarray.rb
+############################################
+# Reading and printing an array in Ruby
+# Name: Lily McAboy
+# Date: 2/29/2024
+# CS 214 Project 07
+# ##########################################
+#
+#
+
+def printArray(arr)
+  arr.each do |elem|
+    puts elem
+  end
+end
+
+def readArray
+  puts "Enter the numbers of your desired array: "
+  input = gets.chomp
+  arr = input.split.map(&:to_f)
+  return arr
+end
+
+def main
+  myArray = readArray
+  puts "Here is your resulting array: "
+  printArray(myArray)
+
+end
+
+main
+]0;lvm5@remotel1: ~/214/projects/07[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/07[00m$ ruby readingarray.rb
+Enter the numbers of your desired array: 
+1.0 2.0 3.0 4.0
+Here is your resulting array: 
+1.0
+2.0
+3.0
+4.0
+]0;lvm5@remotel1: ~/214/projects/07[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/07[00m$ exit
+
+Script done on 2024-02-29 19:59:44-05:00 [COMMAND_EXIT_CODE="0"]

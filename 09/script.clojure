@@ -1,0 +1,102 @@
+Script started on 2024-04-05 14:43:04-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="119" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ cat src/temperature.clj 
+;; test temperature in clojure
+;; 
+;; Author: Lily McAboy
+;; Date: 03/27/24
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns temperature) 
+
+(load-file "src/temp-class.clj")
+
+(defn -main []
+    (let [
+            base (do (print "Please input the base temp (ex 64.5 F): ") (flush) (read-temp))
+            limit (do (print "Please input the limit temp (ex 64.5 F): ") (flush) (read-temp))
+            step (do (print "Please input the step value: ") (flush) (read))
+         ]
+
+        (loop [curr-temp base]
+            (if (less curr-temp limit)
+                (do
+                    (printf "\nF: %f\n" (fahren curr-temp))
+                    (printf "C: %f\n" (celsius curr-temp))
+                    (printf "K: %f\n\n" (kelvin curr-temp))
+                    (recur (raise curr-temp step))
+                )
+                nil 
+            )
+        )
+    )
+)
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ cat src/temp-driver.clj 
+;; Temp class
+;;
+;; Author: Lily McAboy
+;; Date: 03/27/24
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrecord Temperature [degrees scale])
+
+(defn make-Temperature [init-degrees init-scale]
+    (->Temperature init-degrees init-scale)
+)
+
+
+(defn get-degrees [^Temperature tp]
+    (:degrees tp)) 
+
+
+(defn get-scale [^Temperature tp]
+    (:scale tp))
+
+(defn fahren [^Temperature tp]
+    (case (:scale tp)
+        (\c \C) (+ (* (:degrees tp) (/ 9.0 5.0)) 32.0)
+        (\k \K) (+ (* (- (:degrees tp) 273.15) (/ 9.0 5.0)) 32.0)
+        (:degrees tp) 
+    ))
+
+(defn celsius [^Temperature tp]
+    (case (:scale tp)
+        (\f \F) (* (- (:degrees tp) 32.0) (/ 5.0 9.0))
+        (\k \K) (- (:degrees tp) 273.15)
+        (:degrees tp) 
+    ))
+
+(defn kelvin [^Temperature tp]
+    (case (:scale tp)
+        (\f \F) (+ (* (- (:degrees tp) 32.0) (/ 5.0 9.0)) 273.15)
+        (\c \C) (+ (:degrees tp) 273.15)
+        (:degrees tp) (/ 9.0 5.0) 
+    ))
+
+(defn read-temp []
+    (let [
+            in (read-line)
+            c (get in (- (count in) 1))
+            deg (Double/parseDouble (subs in 0 (- (count in) 1))) 
+         ]
+        (->Temperature deg c)
+            nil
+    )
+)
+
+(defn write-temp [^Temperature tp]
+    (print
+        (str (get-degrees tp) " " (get-scale tp))
+    )
+)
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ clojure -m tempreature       erature.cljk  j    
+Please input the base temp (ex 64.5 F): 40.0 F
+Please input the limit temp (ex 64.5 F): 2 50.0 F
+Please input the step value: 2.0 F
+Execution error (IllegalArgumentException) at temperature/kelvin (temp-class.clj:36).
+No matching clause: 
+
+Full report at:
+/tmp/clojure-17466916845165131130.edn
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ exit
+
+Script done on 2024-04-05 14:44:01-04:00 [COMMAND_EXIT_CODE="1"]

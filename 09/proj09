@@ -1,0 +1,648 @@
+Script started on 2024-04-05 14:43:04-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="119" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ cat src/temperature.clj 
+;; test temperature in clojure
+;; 
+;; Author: Lily McAboy
+;; Date: 03/27/24
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns temperature) 
+
+(load-file "src/temp-class.clj")
+
+(defn -main []
+    (let [
+            base (do (print "Please input the base temp (ex 64.5 F): ") (flush) (read-temp))
+            limit (do (print "Please input the limit temp (ex 64.5 F): ") (flush) (read-temp))
+            step (do (print "Please input the step value: ") (flush) (read))
+         ]
+
+        (loop [curr-temp base]
+            (if (less curr-temp limit)
+                (do
+                    (printf "\nF: %f\n" (fahren curr-temp))
+                    (printf "C: %f\n" (celsius curr-temp))
+                    (printf "K: %f\n\n" (kelvin curr-temp))
+                    (recur (raise curr-temp step))
+                )
+                nil 
+            )
+        )
+    )
+)
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ cat src/temp-driver.clj 
+;; Temp class
+;;
+;; Author: Lily McAboy
+;; Date: 03/27/24
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defrecord Temperature [degrees scale])
+
+(defn make-Temperature [init-degrees init-scale]
+    (->Temperature init-degrees init-scale)
+)
+
+
+(defn get-degrees [^Temperature tp]
+    (:degrees tp)) 
+
+
+(defn get-scale [^Temperature tp]
+    (:scale tp))
+
+(defn fahren [^Temperature tp]
+    (case (:scale tp)
+        (\c \C) (+ (* (:degrees tp) (/ 9.0 5.0)) 32.0)
+        (\k \K) (+ (* (- (:degrees tp) 273.15) (/ 9.0 5.0)) 32.0)
+        (:degrees tp) 
+    ))
+
+(defn celsius [^Temperature tp]
+    (case (:scale tp)
+        (\f \F) (* (- (:degrees tp) 32.0) (/ 5.0 9.0))
+        (\k \K) (- (:degrees tp) 273.15)
+        (:degrees tp) 
+    ))
+
+(defn kelvin [^Temperature tp]
+    (case (:scale tp)
+        (\f \F) (+ (* (- (:degrees tp) 32.0) (/ 5.0 9.0)) 273.15)
+        (\c \C) (+ (:degrees tp) 273.15)
+        (:degrees tp) (/ 9.0 5.0) 
+    ))
+
+(defn read-temp []
+    (let [
+            in (read-line)
+            c (get in (- (count in) 1))
+            deg (Double/parseDouble (subs in 0 (- (count in) 1))) 
+         ]
+        (->Temperature deg c)
+            nil
+    )
+)
+
+(defn write-temp [^Temperature tp]
+    (print
+        (str (get-degrees tp) " " (get-scale tp))
+    )
+)
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ clojure -m tempreature       erature.cljk  j    
+Please input the base temp (ex 64.5 F): 40.0 F
+Please input the limit temp (ex 64.5 F): 2 50.0 F
+Please input the step value: 2.0 F
+Execution error (IllegalArgumentException) at temperature/kelvin (temp-class.clj:36).
+No matching clause: 
+
+Full report at:
+/tmp/clojure-17466916845165131130.edn
+]0;lvm5@maroon07: ~/214/projects/09/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/clojure[00m$ exit
+
+Script done on 2024-04-05 14:44:01-04:00 [COMMAND_EXIT_CODE="1"]
+Script started on 2024-04-05 14:45:48-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="119" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/09/ada[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ada[00m$ cat temperature. _package.adb
+-----------------------------------------
+-- Create the Temperature Operations in Ada
+--
+-- Name: Lily McAboy
+-- Date: 3/37/2024
+--
+-----------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+with Ada.Characters.Handling; use Ada.Characters.Handling;
+with Ada.Exceptions; use Ada.Exceptions;
+
+package body Temperature_Package is
+
+    procedure Init(Tp: out Temperature; NewDegrees: in Float; NewScale: in Character) is
+    begin
+        Tp.Degrees := NewDegrees;
+        Tp.Scale := NewScale;
+    end Init;
+
+    function getDegrees(Tp: in Temperature) return Float is
+    begin  
+        return Tp.Degrees;
+    end getDegrees;
+
+    function getScale(Tp: in Temperature) return Character is
+    begin
+        return Tp.Scale;
+    end getScale;
+
+    function ToFahrenheit(Tp: in Temperature) return Float is
+    begin
+        case Tp.Scale is
+            when 'C' =>
+            when 'c' =>
+                return (Tp.Degrees * (9.0 / 5.0) + 32.0);
+            when 'K' =>
+            when 'k' =>
+                return (Tp.Degrees - 273.15) * (9.0 / 5.0) + 32.0;
+            when others =>
+                return Tp.Degrees; 
+        end case;
+    end ToFahrenheit;
+
+    function ToCelsius(Tp: in Temperature) return Float is
+    begin
+        case Tp.Scale is
+            when 'F' =>
+            when 'f' =>
+                return (Tp.Degrees - 32.0) * (5.0 / 9.0);
+            when 'K' =>
+            when 'k' =>
+                return (Tp.Degrees - 273.15);
+            when others =>
+                return Tp.Degrees; 
+        end case;
+    end ToCelsius;
+
+    function ToKelvin(Tp: in Temperature) return Float is
+    begin
+        case Tp.Scale is
+            when 'C' =>
+            when 'c' =>
+                return (Tp.Degrees + 273.15);
+            when 'F' =>
+            when 'f' =>
+                return (Tp.Degrees - 32.0) * (5.0 / 9.0) + 273.15;
+            when others =>
+                return Tp.Degrees; 
+        end case;
+    end ToKelvin;
+
+-- I/O Operations
+
+    procedure Get(Tp: out Temperature) is
+        Input: String(1..16);
+        Input_Length: Natural;
+        myDegree: Float := Float'Value(Input);
+        myChar: Character := Input(Input_Length);
+    begin
+        Put("Enter your temp: ");
+        Get_Line(Input, Input_Length);
+        tp.Scale := myChar;
+        Tp.Degrees := myDegree;
+    end Get;
+
+    function Put(Tp: in Temperature) return String is
+    begin
+        Put(Tp.Degrees); Put(" "); Put(Tp.Scale); New_Line;
+    end Put;
+
+-- Mutation Operations
+
+    procedure increase(Tp: in out Temperature; Value: in Float) is
+    begin
+        Tp.degrees := Tp.degrees + Value;
+    end increase;
+
+    procedure decrease(Tp: in out Temperature; Value: in Float) is
+    Tp.Degrees := Tp.degrees - Value;
+    end decrease;
+
+-- Equality Functions
+    function "="(Tp1, Tp2: in Temperature) return Boolean is
+    begin
+        return ToFahrenheit(Tp1) = ToFahrenheit(Tp2);
+    end "=";
+
+    function "<"(Tp1, Tp2: in Temperature) return Boolean is
+    begin
+        return ToFahrenheit(Tp1) < ToFahrenheit(Tp2);
+    end "<";
+
+end Temperature_Package]0;lvm5@maroon07: ~/214/projects/09/ada[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ada[00m$ cat temperature_package.ads
+-----------------------------------------
+-- Declare the Temperature Class in Ada
+--
+-- Name: Lily McAboy
+-- Date: 3/37/2024
+--
+-----------------------------------------
+
+package Temperature_Package is
+    type Temperature is private;
+
+    procedure Init(Tp: out Temperature; NewDegrees: in Float; NewScale: in Character);
+
+    function getDegrees(Tp: in Temperature) return Float;
+
+    function getScale(Tp: in Temperature) return Character;
+
+-- Changing functions
+    function ToFahrenheit(Tp: in Temperature) return Float;
+
+    function ToCelsius(Tp: in Temperature) return Float;
+
+    function ToKelvin(Tp: in Temperature) return Float;
+
+-- I/O Functions
+    procedure Get(Tp: out Temperature);
+
+    function Put(Tp: in Temperature) return String;
+
+-- Mutation Functions
+    procedure increase(Tp: in out Temperature; Value: in Float);
+
+    procedure decrease(Tp: in out Temperature; Value: in Float);
+
+-- Equality Functions
+
+    function "="(Tp1, Tp2: in Temperature) return Boolean;
+
+    function "<"(Tp1, Tp2: in Temperature) return Boolean;
+
+private 
+
+    type Temperature is 
+        record
+            Degrees: Float;
+            Scale: Character;
+    end record;
+    
+end Temperature_Package;]0;lvm5@maroon07: ~/214/projects/09/ada[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ada[00m$ cat temperature_tester.adb
+-----------------------------------------
+-- Testing the Temperature Class in Ada
+--
+-- Name: Lily McAboy
+-- Date: 3/37/2024
+--
+-----------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+with Temperature_Package; use Temperature_Package;
+
+procedure Temperature_Tester is
+    Base: Temperature;
+    Limit: Temperature;
+    Step: Float;
+begin 
+    Get(Base);
+    Get(Limit);
+    Get(Step);
+
+    while Base < Limit loop
+        Put("F: ");
+        Put(ToFahrenheit(Base));
+        New_Line;
+        Put("C: ");
+        Put(ToCelsius(Base));
+        New_Line;
+        Put("K: ");
+        Put(ToKelvin(Base));
+        Increase(Base, Step);
+    end loop;
+    
+End Temperature_Tester;]0;lvm5@maroon07: ~/214/projects/09/ada[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ada[00m$ gcc -c name_tester.adb
+[01m[Kgcc:[m[K [01;31m[Kerror: [m[Kname_tester.adb: No such file or directory
+[01m[Kgcc:[m[K [01;31m[Kfatal error: [m[Kno input files
+compilation terminated.
+]0;lvm5@maroon07: ~/214/projects/09/ada[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ada[00m$ gcc -c name_pac        temer  perature_tester.adb
+[01m[Kgcc:[m[K [01;31m[Kfatal error: [m[Kcannot execute '[01m[Kgnat1[m[K': execvp: No such file or directory
+compilation terminated.
+]0;lvm5@maroon07: ~/214/projects/09/ada[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ada[00m$ gcc -c temperature_tester.adb[1P[1P[1P[1P[1P[1P[1@p[1@a[1@c[1@k[1@a[1@g[1@e
+[01m[Kgcc:[m[K [01;31m[Kfatal error: [m[Kcannot execute '[01m[Kgnat1[m[K': execvp: No such file or directory
+compilation terminated.
+]0;lvm5@maroon07: ~/214/projects/09/ada[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ada[00m$ exit
+
+Script done on 2024-04-05 14:46:45-04:00 [COMMAND_EXIT_CODE="1"]
+Script started on 2024-04-05 14:47:00-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="119" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/09/ruby[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ruby[00m$ cat TemperatureDriver.rb 
+####################################
+# TemperatureDriver tests the Temperature Class 
+# Name: Lily McAboy
+# Date: 3/27/2024
+####################################
+load 'temperature.rb'
+
+class TemperatureDriver
+  def self.main
+    keyboard = $stdin
+
+    base_temp = Temperature.new
+    print 'Enter Base: '
+    begin
+      base_temp.read(keyboard)
+    rescue StandardError => e
+      puts e.message
+      puts e.backtrace.join("\n")
+      exit(-1)
+    end
+
+    limit_temp = Temperature.new
+    print 'Enter Limit: '
+    begin
+      limit_temp.read(keyboard)
+    rescue StandardError => e
+      puts e.message
+      puts e.backtrace.join("\n")
+      exit(-1)
+    end
+
+    print 'Enter Step: '
+    step_value = keyboard.gets.to_f
+
+    while base_temp < limit_temp
+      puts "\nF: #{base_temp.to_fahrenheit}"
+      puts "C: #{base_temp.to_celsius}"
+      puts "K: #{base_temp.to_kelvin}\n"
+      base_temp.raise_value(step_value)
+    end
+  end
+end
+
+# Running the TemperatureDriver
+TemperatureDriver.main
+
+
+  
+]0;lvm5@maroon07: ~/214/projects/09/ruby[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ruby[00m$ cat temperature.rb 
+####################################
+# Temperature.Ruby writes the class functions in Ruby
+# Name: Lily McAboy
+# Date: 3/27/2024
+####################################
+
+class Temperature
+    def initialize(init_degrees = 0, init_scale = 'f')
+        @degrees = init_degrees
+        @scale = init_scale
+    end
+  
+    def get_degrees
+      @degrees
+    end
+  
+    def get_scale
+      @scale
+    end
+  
+    def to_fahrenheit
+      case @scale.downcase
+      when 'c'
+        (@degrees * (9.0 / 5.0)) + 32.0
+      when 'k'
+        ((@degrees - 273.15) * (9.0 / 5.0)) + 32.0
+      else
+        @degrees
+      end
+    end
+  
+    def to_celsius
+      case @scale.downcase
+      when 'f'
+        (@degrees - 32.0) * (5.0 / 9.0)
+      when 'k'
+        @degrees - 273.15
+      else
+        @degrees
+      end
+    end
+  
+    def to_kelvin
+      case @scale.downcase
+      when 'f'
+        ((@degrees - 32.0) * (5.0 / 9.0)) + 273.15
+      when 'c'
+        @degrees + 273.15
+      else
+        @degrees
+      end
+    end
+  
+    def read(in_stream)
+      temp = in_stream.gets.chomp
+      c = temp[-1].downcase 
+      deg = temp[0...-1].to_f
+    end
+  
+    def write(out_stream)
+      out_stream.puts(to_s)
+    end
+  
+    def to_s
+      "#{@degrees} #{@scale}"
+    end
+  
+    def raise_value(value)
+      @degrees += value
+    end
+  
+    def lower_value(value)
+      @degrees -= value
+    end
+  
+    def ==(other)
+      to_kelvin == other.to_kelvin
+    end
+  
+    def <(other)
+      to_kelvin < other.to_kelvin
+    end
+  end
+  ]0;lvm5@maroon07: ~/214/projects/09/ruby[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ruby[00m$ ruby temp    TemperatureDriver.rb     
+[1mTraceback[m (most recent call last):
+ruby: [1mNo such file or directory -- TemperatureDriver ([1;4mLoadError[m[1m)[m
+]0;lvm5@maroon07: ~/214/projects/09/ruby[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ruby[00m$ ruby TemperatureDriver.rb
+Enter Base: 60.0 F
+Enter Limit: 100.0 F
+Enter Step: 10.0
+]0;lvm5@maroon07: ~/214/projects/09/ruby[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/ruby[00m$ exit
+
+Script done on 2024-04-05 14:47:33-04:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-04-05 14:41:55-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="119" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/09/java[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/java[00m$ cat Temperature.java
+/* Implementing the Temperature class
+ * Name: Lily McAboy
+ * Date: 03/27/2024
+ */
+
+import java.util.Scanner;
+
+class Temperature {
+	public Temperature() {
+		degrees = 0;
+		scale = 'f';
+	}
+
+	public Temperature(double initialDeg, char initialScale) throws Exception {
+			degrees = initialDeg;
+			scale = initialScale;
+		}
+
+	public double getDegrees(){
+		return degrees;
+	}
+
+	public char getScale(){
+		return scale;
+	}
+
+	public double toFahren(){
+		switch(scale){
+			case('C'):
+			case('c'):
+				return (degrees * (9.0/5.0)) + 32.0;
+			case('K'):
+			case('k'):
+				return (degrees - 273.15) * (9.0/5.0) + 32.0;
+			default:
+				return degrees;
+		}
+	}
+
+	public double toCelsius(){
+		switch(scale){
+			case('F'):
+			case('f'):
+				return (degrees - 32.0) * (5.0/9.0);
+			case('K'):
+			case('k'):
+				return degrees - 273.15;
+			default:
+				return degrees;
+		}
+	}
+
+	public double toKelvin(){
+		switch(scale) {
+			case('F'):
+			case('f'):
+				return ((degrees - 32.0) * (5.0 / 9.0) + 273.15);
+			case('C'):
+			case('c'):
+				return degrees + 273.15;
+			default:
+				return degrees; // if kelvin
+		}
+	}
+
+	public void raise(double Raise){
+		degrees += Raise;
+	}
+
+	public void lower(double Lower){
+		degrees -= Lower;
+	}
+
+	public boolean equal(Temperature newTemp){
+		return toFahren() == newTemp.toFahren();
+	}
+
+	public boolean lessThan(Temperature newTemp){
+		return toFahren() < newTemp.toFahren();
+
+	}
+
+	public void read(Scanner in) throws Exception {
+		String temp = in.nextLine();
+		char c = Character.toLowerCase(temp.charAt(temp.length() - 1)); 
+		double deg = Double.parseDouble(temp.substring(0, temp.length() - 1)); 
+	}
+
+	public void write() {
+		System.out.println(String.format("%f %c", degrees, scale));
+	}
+
+	private double degrees;
+	private char scale;
+
+
+}
+	
+]0;lvm5@maroon07: ~/214/projects/09/java[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/java[00m$ cat TempDriver.java 
+/* A tester for the temperature class in java
+* Name: Lily McAboy
+* Date: March 27th, 2024
+*/
+
+import java.util.Scanner;
+
+class Temperature {
+    public static void main(String[] args) {
+        Scanner keybaord = new Scanner(System.in);
+
+        Temperature base = new Temperature();
+        System.out.print("Enter your base temperature: ");
+        try {
+            base.read(keyboard);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+        Temperature limit = new Temperature();
+        System.out.print("Enter your limit temperature: ");
+        try {
+            limit.read(keyboard);
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+        System.out.print("Please enter a step value: ");
+        double step = keyboard.nextDouble();
+
+        while(base.lessThan(limit)) {
+            System.out.printf("\nF: %f\n", base.toFahren());
+            System.out.printf("C: %f\n", base.toCelsius());
+            System.out.printf("D: %f\n\n", base.toKelvin());
+            base.raise(step);
+        }
+    }
+}
+]0;lvm5@maroon07: ~/214/projects/09/java[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/java[00m$ javac -deprecation Temperature.java
+]0;lvm5@maroon07: ~/214/projects/09/java[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/java[00m$ javac -depreation     cation TEmp   empDriver.java
+TempDriver.java:15: error: cannot find symbol
+            base.read(keyboard);
+                      ^
+  symbol:   variable keyboard
+  location: class Temperature
+TempDriver.java:26: error: cannot find symbol
+            limit.read(keyboard);
+                       ^
+  symbol:   variable keyboard
+  location: class Temperature
+TempDriver.java:35: error: cannot find symbol
+        double step = keyboard.nextDouble();
+                      ^
+  symbol:   variable keyboard
+  location: class Temperature
+TempDriver.java:37: error: cannot find symbol
+        while(base.lessThan(limit)) {
+                  ^
+  symbol:   method lessThan(Temperature)
+  location: variable base of type Temperature
+TempDriver.java:38: error: cannot find symbol
+            System.out.printf("\nF: %f\n", base.toFahren());
+                                               ^
+  symbol:   method toFahren()
+  location: variable base of type Temperature
+TempDriver.java:39: error: cannot find symbol
+            System.out.printf("C: %f\n", base.toCelsius());
+                                             ^
+  symbol:   method toCelsius()
+  location: variable base of type Temperature
+TempDriver.java:40: error: cannot find symbol
+            System.out.printf("D: %f\n\n", base.toKelvin());
+                                               ^
+  symbol:   method toKelvin()
+  location: variable base of type Temperature
+TempDriver.java:41: error: cannot find symbol
+            base.raise(step);
+                ^
+  symbol:   method raise(double)
+  location: variable base of type Temperature
+8 errors
+]0;lvm5@maroon07: ~/214/projects/09/java[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/09/java[00m$ exit
+
+Script done on 2024-04-05 14:42:27-04:00 [COMMAND_EXIT_CODE="1"]

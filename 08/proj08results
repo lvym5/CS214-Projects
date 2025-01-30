@@ -1,0 +1,435 @@
+Script started on 2024-03-15 14:33:46-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="90" LINES="40"]
+]0;lvm5@maroon04: ~/214/projects/08[01;32mlvm5@maroon04[00m:[01;34m~/214/projects/08[00m$ cat Nametester.java
+/*
+ * Aggregate Operations; Examples with Name operations
+ * Name: Lily McAboy
+ * Date: 3/15/2024
+ */
+
+ import java.util.Scanner;
+
+ public class NameTester
+ {
+    public static void main(String[] args)
+    {
+        Name aName = new Name("Lily", "Violet", "McAboy");
+
+        assert aName.getFirst().equals("Lily");
+        assert aName.getMiddle().equals("Violet");
+        assert aName.getLast().equals("McAboy");
+
+        System.out.println(aName);
+        assert aName.toString().equals("Lily Violet McAboy");
+        assert aName.lfmi().equals("McAboy, Lily, V.");
+        aName.setFirst("Kenneth");
+        aName.setMiddle("Munro");
+        aName.setLast("Howes");
+
+        assert aName.toString().equals("Kenneth Munro Howes");
+        assert aName.getFirst().equals("Kenneth");
+        assert aName.getMiddle().equals("Munro");
+        assert aName.getLast().equals("Howes");
+
+        System.out.println("All tests passed!");
+    }
+ }
+
+ class Name
+ {
+    private String myFirst, myMiddle, myLast;
+
+    public Name(String first, String middle, String last)
+    {
+        myFirst = first;
+        myMiddle = middle;
+        myLast = last;
+    }
+
+    public String getFirst()
+    {
+        return myFirst;
+    }
+
+    public String getMiddle()
+    {
+        return myMiddle;
+    }
+
+    public String getLast()
+    {
+        return myLast;
+    }
+
+    public String toString()
+    {
+        return myFirst + " " + myMiddle + " " + myLast;
+    }
+
+    public void print()
+    {
+        System.out.println( toString());
+    }
+
+    public void setFirst(String aFirst)
+    {
+        myFirst = aFirst;
+    }
+
+    public void setMiddle(String aMiddle)
+    {
+        myMiddle = aMiddle;
+    }
+
+    public void setLast(String aLast)
+    {
+        myLast = aLast;
+    }
+
+    public String lfmi()
+    {
+        return myLast + ", " + myFirst + " " + myMiddle.charAt(0) + ".";
+    }
+
+    public void read()
+    {
+        Scanner scanner = new Scanner(System.in);
+        myFirst = scanner.nextLine();
+        myMiddle = scanner.nextLine();
+        myLast = scanner.nextLine();
+    }
+ }
+]0;lvm5@maroon04: ~/214/projects/08[01;32mlvm5@maroon04[00m:[01;34m~/214/projects/08[00m$ java NameT tester.java
+Lily Violet McAboy
+All tests passed!
+]0;lvm5@maroon04: ~/214/projects/08[01;32mlvm5@maroon04[00m:[01;34m~/214/projects/08[00m$ exit
+
+Script done on 2024-03-15 14:34:03-04:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-03-15 14:45:53-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="181" LINES="90"]
+]0;lvm5@maroon04: ~/214/projects/08[01;32mlvm5@maroon04[00m:[01;34m~/214/projects/08[00m$ cat name_tester.adb
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure name_tester is
+
+	-- replace this line with the definition of NAME_SIZE
+	NAME_SIZE : Integer := 8;
+	-- replace this line with the definition of Name
+	type Name is record myFirst, myMiddle, myLast : String(1..NAME_SIZE); end record;
+	aName : Name ;
+	--  aName : Name ;
+
+
+	----------------------------------------------
+	-- Init initializes a Name variable          -
+	-- Receive: theName, the Name variable;      -
+	--          First, the first name;           -
+	--          Middle, the middle name;         -
+	--          Last, the last name.             -
+	-- Return: theName, its fields set to First, -
+	--               Middle, and Last.           -
+	----------------------------------------------
+
+	-- replace this line with the definition of Init()
+	procedure Init(TheName: out Name; First, Middle, Last : in String) is begin TheName.MyFirst := First; TheName.MyMiddle := Middle; TheName.MyLast := Last; end Init;
+
+	----------------------------------------------
+	-- getFirst(Name) retrieves Name.myFirst        -
+	-- Receive: theName, a Name.                 -
+	-- PRE: theName has been initialized.        -
+	-- Return: theName.myFirst.                  -
+	----------------------------------------------
+
+	-- replace this line with the definition of getFirst()
+	function getFirst(TheName : in Name) return String is begin return TheName.MyFirst; end getFirst;
+
+	-- replace this line with the doc and def of getMiddle()
+	function getMiddle(TheName : in Name) return String is begin return TheName.MyMiddle; end getMiddle;
+
+	-- replace this line with the doc and def of getLast()
+	function getLast(TheName : in Name) return String is begin return TheName.MyLast; end getLast;
+
+	-----------------------------------------------
+	-- getFullName(Name) retrieves Name as a String  -
+	-- Receive: theName, a Name.                  -
+	-- PRE: theName has been initialized.         -
+	-- Return: a String representation of theName -
+	-----------------------------------------------
+
+	-- replace this line with the definition of getFullName()
+	--function getFullName(TheName : in Name) return String is begin return TheName.MyFirst & TheName.MyMiddle & TheName.MyLast; end getFullName;
+	function getFullName(TheName: in Name) return String is begin return TheName.myFirst & " " & TheName.MyMiddle & " " & TheName.MyLast; end getFullName;
+
+	procedure setFirst(TheName : out Name; aFirst: in String) is begin
+		TheName.MyFirst := aFirst;
+	end setFirst;
+
+	procedure setMiddle(TheName : out Name; aMiddle: in String) is begin
+		TheName.MyMiddle := aMiddle;
+	end setMiddle;
+
+	procedure setLast(TheName : out Name; aLast: in String) is begin
+		TheName.MyLast := aLast;
+	end setLast;
+
+	function lfmi(TheName : in Name) return String is begin
+		return TheName.MyLast & ", " & TheName.MyFirst & " " & TheName.MyMiddle(1) & ".";
+	end lfmi;
+
+	procedure read(TheName : out Name) is begin
+		Get(TheName.MyFirst);
+		Get(TheName.MyMiddle);
+		Get(TheName.MyLast);
+	end read;
+
+
+	----------------------------------------------
+	-- Put(Name) displays a Name value.          -
+	-- PRE: theName has been initialized.        -
+	-- Receive: theName, a Name.                 -
+	-- Output: theName, to the screen.           -
+	----------------------------------------------
+
+	--- replace this line with the definition of Put()
+
+	procedure Put(TheName: in Name) is begin Put(getFullName(TheName)); end Put;
+
+begin
+
+	Init(aName, "Lily    ", "Violet  ", "McAboy  ");
+	pragma Assert( getFirst(aName) = "Lily    ", "getFirst() failed");
+	pragma Assert( getMiddle(aName) = "Violet  ", "getMiddle() failed");
+	pragma Assert( getLast(aName) = "McAboy  ", "getLast() failed");
+	pragma Assert( getFullName(aName) = "Lily     Violet  McAboy  ", "getFullName() failed");
+
+	setFirst(aName, "Angelina");
+	setMiddle(aName, "Isabella");
+	setLast(aName, "Cressida");
+	pragma Assert( lfmi(aName) = "Cressida, Angelina I.", "lfmi failed");
+
+	Put(aName);
+	New_Line;
+	Put("All tests passed.");
+
+end name_tester;
+
+
+]0;lvm5@maroon04: ~/214/projects/08[01;32mlvm5@maroon04[00m:[01;34m~/214/projects/08[00m$ gnatmake name_tester.adb
+gnatmake: "name_tester" up to date.
+]0;lvm5@maroon04: ~/214/projects/08[01;32mlvm5@maroon04[00m:[01;34m~/214/projects/08[00m$ ./name_tester
+Angelina Isabella Cressida
+All tests passed.
+]0;lvm5@maroon04: ~/214/projects/08[01;32mlvm5@maroon04[00m:[01;34m~/214/projects/08[00m$ exit
+
+Script done on 2024-03-15 14:46:11-04:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-03-21 20:38:18-04:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="121" LINES="32"]
+]0;lvm5@remotel2: ~/214/projects/08/clojure[01;32mlvm5@remotel2[00m:[01;34m~/214/projects/08/clojure[00m$ cat src/nameTester.clj 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Aggregate Operations in Clojure
+;;;; Name: Lily McAboy
+;;;; Date: 3/15/2024
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns nameTester)
+
+(defrecord Name [firstName middleName lastName])
+
+(defn make-Name [first middle last]
+  (->Name first middle last)
+  )
+
+(defn getFirst [^Name aName]
+  (:firstName aName)
+  )
+
+(defn getMiddle [^Name aName]
+  (:middleName aName)
+  )
+
+(defn getLast [^Name aName]
+  (:lastName aName)
+  )
+
+(defn toString [^Name aName]
+  (str (:firstName aName) " " (:middleName aName) " " (:lastName aName))
+  )
+
+(defn printName [^Name aName]
+  (print (toString aName))
+  )
+
+(defn setFirst [aName newFirst]
+  (->Name newFirst (:middleName aName) (:lastName aName))
+  )
+
+(defn setMiddle [aName newMiddle]
+  (->Name (:firstName aName) newMiddle (:lastName aName))
+  )
+
+(defn setLast [aName newLast]
+  (->Name (:firstName aName) (:middleName aName) newLast)
+  )
+
+(defn lfmi [aName]
+  (str (:lastName aName) ", "(:firstName aName) " " (subs (:middleName aName) 0 1) ".")
+  )
+
+(defn readName []
+  (->Name (read-line) (read-line) (read-line))
+)
+(defn -main []
+  (let
+    [                                          ; 3 ways to construct an object:
+     name1 (make-Name "John" "Paul" "Jones")  ; -using our "make-" constructor
+     name2 (->Name "Jane" "Penelope" "Jones") ; -invoking constructor directly
+     ; -mapping field-names to values
+     name3 (map->Name {:lastName "Jones" :firstName "Jinx" :middleName "Joy"})
+     name4 (setFirst name3 "Lily")
+     name5 (setMiddle name4 "Violet")
+     name6 (setLast name5 "McAboy")
+     nameTest (readName)
+     ]
+    ;; ----- SECTION 1 -----
+    (println)
+    (print name1) (println)
+    (assert (= (getFirst name1) "John") "getFirst(1) failed")
+    (assert (= (getMiddle name1) "Paul") "getMiddle(1) failed")
+    (assert (= (getLast name1) "Jones") "getLast(1) failed")
+    (assert (= (toString name1) "John Paul Jones") "toString(1) failed")
+    (printName name1) (println)
+    ;; ----- SECTION 2 -----
+    (println)
+    (print name2) (println)
+    (assert (= (getFirst name2) "Jane") "getFirst(2) failed")
+    (assert (= (getMiddle name2) "Penelope") "getMiddle(2) failed")
+    (assert (= (getLast name2) "Jones") "getLast(2) failed")
+    (assert (= (toString name2) "Jane Penelope Jones") "toString(2) failed")
+    (printName name2) (println)
+    ;; ----- SECTION 3 -----
+    (println)
+    (print name3) (println)
+    (assert (= (getFirst name3) "Jinx") "getFirst(3) failed")
+    (assert (= (getMiddle name3) "Joy") "getMiddle(3) failed")
+    (assert (= (getLast name3) "Jones") "getLast(3) failed")
+    (assert (= (toString name3) "Jinx Joy Jones") "toString(3) failed")
+    (printName name3) (println)
+
+
+    (println)
+    (assert (= (getFirst name4) "Lily") "setFirst() failed")
+    (assert (= (getMiddle name5) "Violet") "getMiddle() failed")
+    (assert (= (getLast name6) "McAboy") "getLast() failed")
+    (assert (= (lfmi name6) "McAboy, Lily V.") "lfmi() failed")
+    (printName name6) (println)
+
+    (println)
+    (printName nameTest) (println)
+
+    (println "\nAll tests passed!\n")
+
+
+    )
+  )
+
+]0;lvm5@remotel2: ~/214/projects/08/clojure[01;32mlvm5@remotel2[00m:[01;34m~/214/projects/08/clojure[00m$ clojure -m nameTester
+Lillian V  
+Violet
+Y McAboy
+
+#nameTester.Name{:firstName John, :middleName Paul, :lastName Jones}
+John Paul Jones
+
+#nameTester.Name{:firstName Jane, :middleName Penelope, :lastName Jones}
+Jane Penelope Jones
+
+#nameTester.Name{:firstName Jinx, :middleName Joy, :lastName Jones}
+Jinx Joy Jones
+
+Lily Violet McAboy
+
+Lillian Violet McAboy
+
+All tests passed!
+
+]0;lvm5@remotel2: ~/214/projects/08/clojure[01;32mlvm5@remotel2[00m:[01;34m~/214/projects/08/clojure[00m$ exit
+
+Script done on 2024-03-21 20:38:51-04:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-03-20 16:23:34-04:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="80" LINES="32"]
+]0;lvm5@remotel1: ~/214/projects/08[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/08[00m$ cat NameTester.rb
+
+# Name: Lily McAboy
+# Date: 3/15/2024
+################################
+
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+
+class Name 
+  def initialize(first, middle, last)
+    @first, @middle, @last = first, middle, last
+  end
+  attr_reader :first, :middle, :last
+
+  def fullName()
+    return @first + " " + @middle + " " + @last
+  end
+
+  def print()
+    puts fullName()
+    return fullName()
+  end
+
+  def setFirst(aFirst)
+    @first = aFirst
+  end
+
+  def setMiddle(aMiddle)
+    @middle = aMiddle
+  end
+
+  def setLast(aLast)
+    @last = aLast
+  end
+
+  def lfmi
+    "#{@last}, #{@first} #{@middle[0]}."
+  end
+  def read()
+    first = gets.chomp
+    middle = gets.chomp
+    last = gets.chomp
+  end
+
+end
+
+def testName
+  name = Name.new("John", "Paul", "Jones")
+
+  assert(name.first == "John", "first failed")
+  assert(name.middle == "Paul", "middle failed")
+  assert(name.last == "Jones", "last failed")
+  assert(name.fullName == "John Paul Jones", "fullName failed")
+  assert(name.print == "John Paul Jones", "print failed")
+
+  name.setFirst("Lily")
+  assert(name.first == "Lily", "setFirst failed")
+  name.setMiddle("Violet")
+  assert(name.middle == "Violet", "setMiddle failed")
+  name.setLast("McAboy")
+  assert(name.last == "McAboy", "setLast failed")
+  assert(name.fullName == "Lily Violet McAboy", "fullName after set failed")
+  assert(name.print == "Lily Violet McAboy", "print after set failed")
+
+  assert(name.lfmi == "McAboy, Lily V.", "lfmi failed")
+
+  puts "All tests passed!"
+end
+
+testName
+
+
+]0;lvm5@remotel1: ~/214/projects/08[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/08[00m$ ruby NameTester.rb
+John Paul Jones
+Lily Violet McAboy
+All tests passed!
+]0;lvm5@remotel1: ~/214/projects/08[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/08[00m$ exit
+
+Script done on 2024-03-20 16:23:52-04:00 [COMMAND_EXIT_CODE="0"]

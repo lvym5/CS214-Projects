@@ -1,0 +1,41 @@
+Script started on 2024-03-01 14:35:03-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="124" LINES="44"]
+]0;lvm5@maroon07: ~/214/projects/07/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07/clojure[00m$ cat src/readingarray.clj
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Reading in and printing an array in Clojure
+;;; Name: Lily McAboy
+;;; Date: 2/27/2024
+;;; CS 214 Project 07 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns readingarray)
+
+(defn readArray [mySize]
+  (vec (repeatedly mySize
+                   #(let [line (read-line)]
+                      (Double/parseDouble (.trim line))))))
+
+(defn printArray [myArray]
+  (doseq [elem myArray]
+    (println elem)))
+
+(defn -main []
+  (println "Enter your desired array size and then add your array values: ")
+  (let [theSize (Integer. (read-line))
+        theArray (readArray theSize)]
+  (println "Here are the values of your array: ")
+  (printArray theArray)))
+]0;lvm5@maroon07: ~/214/projects/07/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07/clojure[00m$ clojure -m readingarray
+Enter your desired array size and then add your array values: 
+4
+1
+2
+3
+4
+Here are the values of your array: 
+1.0
+2.0
+3.0
+4.0
+]0;lvm5@maroon07: ~/214/projects/07/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/07/clojure[00m$ exit
+
+Script done on 2024-03-01 14:35:21-05:00 [COMMAND_EXIT_CODE="0"]
