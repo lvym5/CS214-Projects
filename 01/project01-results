@@ -1,0 +1,262 @@
+Script started on 2024-01-20 11:31:27-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="136" LINES="67"]
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ vim CircleArea.javagedit lab01-resultscd  /home/cs/214/current/lvm5[10Pgedit lab01-resultsvim CircleArea.java[Kjavac -deprecation RectangleArea.java
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ java Rectangle A  Area
+
+
+To compute the area of a rectangle,
+ enter its height: 2
+ and enter its width: 3
+
+The area is 6.0
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ cat RectangleArea.java
+ /*RectangleArea.java computes the area of a rectangle 
+ *
+ * Input: The height and width of a rectangle.
+ * Precondition: The height and width is a positive number.
+ * Output: The area of the Rectamgle.
+ * Completed by: Lily McAboy
+ * Date:1/20/2024
+ **********************************************************/
+
+
+import java.util.Scanner;  // include class for Scanner
+
+public class RectangleArea{
+
+     /* function rectangleArea() computes a circle's area, given its radius.
+      * Parameter: width w and height h, both positive double numbers */
+
+     public static double rectangleArea(double w, double h) {
+        return w*h;               // return an expression
+     } // RectangleArea method
+	
+  // main program
+  public static void main(String[] args) {
+      // prompt for radius
+      System.out.println("\n\nTo compute the area of a rectangle,");
+      System.out.print(" enter its height: ");
+
+      Scanner keyboard = new Scanner(System.in);
+
+      //get height from the user 
+      double height = keyboard.nextDouble();
+
+      //ask for width
+      System.out.print(" and enter its width: ");
+
+      //Get the width from the user
+      double width = keyboard.nextDouble();
+
+      // output area
+      System.out.println("\nThe area is " + rectangleArea(height, width)); 
+  } // main method
+
+} // class CircleArea
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ cat RectangleArea.java[4Pjava RectangleArea
+
+
+To compute the area of a rectangle,
+ enter its height: 4
+ and enter its width: 4
+
+The area is 16.0
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ java RectangleArea
+
+
+To compute the area of a rectangle,
+ enter its height: 8
+ and enter its width: 17
+
+The area is 136.0
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ exit
+exit
+
+Script done on 2024-01-20 11:32:40-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-01-20 12:53:59-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="213" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/01/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure[00m$ cat rectangle_area.rb
+#! /usr/bin/ruby
+# Computing the area of a rectangle given the height and width 
+# Input: height and width
+# output: area of a rectangle
+#
+# Completed by: Lily McAboy
+# Date: 1/20/2024
+#
+# #######################################################################
+
+def rectangle_area(height, width) #create function
+  height * width
+end 
+
+if __FILE__ == $0
+  puts "Compute the area of a rectangle." 
+  print "Enter the height: "
+  height = gets.chomp.to_f # read in height
+  print "Enter the width: "
+  width = gets.chomp.to_f # read in width
+  print "The area of the rectangle is: "
+  puts rectangle_area(height, width) #return the area of a rectangle
+end 
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure[00m$ ruby rectangle_re  area.rb
+Compute the area of a rectangle.
+Enter the height: 2
+Enter the width: 6
+The area of the rectangle is: 12.0
+]0;lvm5@maroon07: ~/214/projects/01/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure[00m$ ruby rectangle_area.rb
+Compute the area of a rectangle.
+Enter the height: 3
+Enter the width: 5.5
+The area of the rectangle is: 16.5
+]0;lvm5@maroon07: ~/214/projects/01/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure[00m$ ruby rectangle_area.rb
+Compute the area of a rectangle.
+Enter the height: 8
+Enter the width: 2.7
+The area of the rectangle is: 21.6
+]0;lvm5@maroon07: ~/214/projects/01/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure[00m$ ruby rectangle_area.rb
+Compute the area of a rectangle.
+Enter the height: 9
+Enter the width: 9
+The area of the rectangle is: 81.0
+]0;lvm5@maroon07: ~/214/projects/01/clojure[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure[00m$ exit
+exit
+
+Script done on 2024-01-20 12:54:46-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-01-20 11:51:18-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="136" LINES="67"]
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ c cat rectangle_area.adb
+-- Finding the area of a rectangle using Ada
+-- Input: the height and width of the rectangle
+-- precondition: the numbers must be a positive number 
+-- output: the area of a rectangle 
+--
+-- Completed by: Lily McAboy
+-- Date: 1/20/2024
+--
+
+with Ada.Text_IO, Ada.Float_Text_IO; --include the float and text libraries
+use Ada.Text_IO, Ada.Float_Text_IO; -- make the float and text libraries able to work 
+
+procedure rectangle_area is --create our procedure
+	height, width, area : float; --creating height, width, and area as a type float 
+-- height and width must be positive numbers 
+
+	function rectangle_area(height: in float; width: in float) return float is -- creating our function
+	begin
+		return height * width; --computing area
+	end rectangle_area; 
+
+begin 
+	New_line;
+	Put_Line("Compute the area of a rectangle by entering: ");
+	Put("Enter the height: ");
+	Get(height);
+	Put("Enter the width: ");
+	Get(width);
+
+	area := rectangle_area(height, width); 
+
+	New_Line;
+	Put("The rectangle area is: ");
+	Put(area, 1, 2, 0); --only let it have two decimal points at most
+
+end rectangle_area;
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ gnatmake rectangle_area
+gnatmake: "rectangle_area" up to date.
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ ./rectangle_area
+
+Compute the area of a rectangle by entering: 
+Enter the height: 2
+Enter the width: 4
+
+The rectangle area is: 8.00
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ ./rectangle_area
+
+Compute the area of a rectangle by entering: 
+Enter the height: 3.5
+Enter the width: 7.2
+
+The rectangle area is: 25.20
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ ./rectangle_area
+
+Compute the area of a rectangle by entering: 
+Enter the height: 6
+Enter the width: 9
+
+The rectangle area is: 54.00
+]0;lvm5@maroon07: ~/214/projects/01[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01[00m$ exit
+exit
+
+Script done on 2024-01-20 11:52:06-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-01-20 12:46:06-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="213" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ cat circle      rectangle_area.clj
+;;;; compute the area of a rectangle
+;;;; Input: height and width
+;;;; Output: area of circle
+;;;; Created by: Lily McAboy
+;;;; Date: 1/20/2024
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns rectangle_area) ;namespace
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function rectangle_area() computes the area of a rectangle
+;;; receiving height and width, where both are positive
+;;; Return the area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn rectangleArea [height width]
+  (* height width) ;Return the area
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;Function: execute our function
+;;;Input: height and width
+;;;output: area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+  (println "To compute the area of a rectangle: \n")
+  (let [height (do (print "Enter the height: ")(flush)(read))
+        width (do(print "Enter the width: ")(flush)(read))] ;do() function found on stack overflow: https://stackoverflow.com/questions/58076459/addition-of-two-numbers-by-taking-user-input
+        (assert(>= width 0) "-main: Width must be positive.")
+        (assert(>= height 0) "-main: Height must be positive.")
+        (printf "\nThe area of the rectangle is %.2f\n\n" (double(rectangleArea height width)))
+    )
+)
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 2
+Enter the width: 3
+
+The area of the rectangle is 6.00
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 4
+Enter the width: 5.5
+
+The area of the rectangle is 22.00
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 16
+Enter the width: 3
+
+The area of the rectangle is 48.00
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 8
+Enter the width: 3.2
+
+The area of the rectangle is 25.60
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ exit
+exit
+
+Script done on 2024-01-20 12:46:55-05:00 [COMMAND_EXIT_CODE="0"]

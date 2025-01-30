@@ -1,0 +1,139 @@
+NAME: Lily McAboy
+CLASS: CS 214-A, PROJECT 02
+DATE: 1/23/2024
+
+This week's project is to practice creating BNF definitions and work with derivations.
+
+The are three key ideas to keep in mind:
+
+    If a portion of a language construct is complicated, hide the complexity by creating a nonterminal for it, and then define the nonterminal (later).
+    If a language construct is optional, create a nonterminal that has two productions, one of which defines the optional part, and the other of which is an Ø-production.
+    If a language construct can be repeated, create a non-terminal that has two productions, one of which is a recursive production providing the repetition, and the other of which is an Ø-production by which the recursion can terminate. 
+
+    Using these ideas, define the constructs below with BNF productions. Underline the terminals in your productions, to distinguish them from the nonterminals. You may assume that the following have already been defined:
+
+       <letter>   ::=   A | B | C | D | E | F | G | H | I | J | K | L 
+                        | M | N | O | P | Q | R | S | T | U | V | W 
+                        | X | Y | Z | a | b | c | d | e | f | g | h
+                        | i | j | k | l | m | n | o | p | q | r | s
+                        | t | u | v | w | x | y | z
+       <digit>   ::=   0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+       
+
+ A Java character literal
+
+<char_literal> ::= <quotation_mark> <letter> <quotation_mark>
+<quotation_mark> ::=  ‘
+
+A Java character string literal
+
+<string_literal> ::= <quotation_mark> <strings> <quotation_mark>
+<quotation_mark> ::= ‘
+<strings> ::= <letter> | <letter> <strings>
+
+
+A Java integer literal
+
+
+<integer_literal> ::=  <int> | <hex_int> | <bin_int>
+<hex_int> ::= <hex_identifier> <hex_num>
+<bin_int> ::= <bin_identifier> <bin_int>
+<int> ::= <digit> | <digit> <int>
+<hex_identifier> ::= 0x
+<bin_identifier> ::= 0b
+<hex_num> ::= <hex_digit> | <hex_digit> <hex_num>
+<hex_digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | a | b | c | d | e | f
+<bin_int> ::= <bin_digit> | <bin_digit><bin_int>
+<bin_digit> ::= 0|1
+
+
+
+
+A Java real (floating point) literal
+
+<floating_literal> ::= <floating_point> | <hex_float> | <bin_float> 
+
+
+
+
+
+
+
+
+A Java identifier:
+
+
+<identifier> ::= <type> <name>
+<type> ::= int | char | float | String | double | Array | boolean | byte | short | long
+<name> ::= <letter> | <letter> <digit> <name> | <letter> <name> | <letter><digit> | <letter><digit><name_dig>
+<name_dig> ::= <digit>
+
+
+
+
+A Java function declaration (prototype):
+<declaration> ::= <return-type> <type> <method_name> <parenthesis1> < parameters> <parenthesis2> <curly_bracket>
+<return-type> ::= void | <type>
+<type> ::= byte | short | long | int | boolean | float | double | char
+<method_name> ::= <letter> | <letter><digit> | <letter><method_name>
+<parenthesis1> ::= (
+<parenthesis2> ::= )
+<parameters> ::= <parameters><parenthesis1> <input> <parenthesis 2>
+<input> ::= <type> <letter> | <type> <letter-list>
+<letter-list> ::= <letter><letter_list>
+<curly_bracket> ::= {
+
+
+
+
+A Java if statement (you may assume that the nonterminals <statement> and <expression> are defined elsewhere):
+
+<ifStatement> ::= if <expression> { <statement> ; } <elsifStatement> <else>
+<elsifStatement> ::= else if <expression> { <statement>; }
+<else> ::= else {<statement>; }
+
+A Java while statement (you may assume that the nonterminals <statement> and <expression> are defined elsewhere):
+
+<while_statement> ::= while (<expression>) { <statement> }
+   
+
+
+    Prove that the following grammar is ambiguous:
+
+        <S> ::= <A>
+        <A> ::= <A> + <A> | <id>
+        <id> ::= a | b | c 
+        
+An ambiguous grammar implies that it is context-free. Since <A> gives two derivations of <A> + <A>, or in this situation, there are multiple parse trees so we can have many different situtaions; you could get...
+        <A> + <A> 
+        a + a
+        <A> + a
+        <A> + <A> + a
+and more. the <A> can call itself back and just continue in an infinite line since there is no terminal that can stop it besides getting an <id> but since you can get <A> + <A> or <id>, there is a distinct possiblity that you never get <id> and it will run forever as <A> + <A> + <A> + ... 
+
+
+
+
+    Give a left-most derivation for A = A * (B + C) using the following BNF grammar:
+
+        <assign> ::= <id> = <expr>
+        <id> ::= A | B | C
+        <expr> ::= <expr> + <term> | <term>
+        <term> ::= <term> * <factor> | <factor>
+        <factor> ::= ( <expr> ) | <id> 
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+Turn in. Using any text editor or word processor, make an electronic copy of this page and write your name prominently at the top. Then enter your solutions directly on that electronic copy. When you are finished, copy it into your personal folder in /home/cs/214/current/.
+

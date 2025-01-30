@@ -1,0 +1,272 @@
+Script started on 2024-02-02 14:45:45-05:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="122" LINES="47"]
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ cat letter_grades.h java
+/* letter_grades is a driver for function letter_grades().
+ *
+ * Name: Lily McAboy
+ * Date: 2/5/2024
+ * CS 214 Project 03
+ ****************************************************************/
+
+import java.util.Scanner;
+
+public class letterGrade {
+
+	public static char letterGrade(int percent)
+	{
+		int avg = percent / 10;
+
+		switch(avg)
+		{
+			case 10: case 9 :
+				return 'A';
+			case 8:
+				return 'B';
+			case 7:
+				return 'C';
+			case 6:
+				return 'D';
+			default:
+				return 'F';
+		}
+	}
+
+   public static void main(String[] args) {
+      Scanner keyboard = new Scanner(System.in);
+      System.out.println("\nEnter your grade: "); // prompt
+
+      int letter = keyboard.nextInt();      // read
+
+      System.out.println("\nYour grade is: " + letterGrade(letter)); // display its code
+   }                      
+}   
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ java letter_grades.java
+
+Enter your grade: 
+100
+
+Your grade is: A
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ java letter_grades.java
+
+Enter your grade: 
+45
+
+Your grade is: F
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ java letter_grades.java
+
+Enter your grade: 
+66
+
+Your grade is: D
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ java letter_grades.java
+
+Enter your grade: 
+89
+
+Your grade is: B
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ java letter_grades.java
+
+Enter your grade: 
+900
+
+Your grade is: F
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ java letter_grades.java
+
+Enter your grade: 
+92
+
+Your grade is: A
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ exit
+exit
+
+Script done on 2024-02-02 14:46:42-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-02-05 14:17:37-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="111" LINES="44"]
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ cat letter_grades.adb
+-- letter_grades calculates what letter grade a score is based on an integer input from the user
+-- Name: Lily McAboy
+-- Date: 2/5/2024
+-- CS 214 Project 03
+----------------------------------------------------
+
+with Ada.Text_IO, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Integer_Text_IO;
+
+procedure letter_grades is
+
+	grade : Integer;
+
+	function letterGrade(usr_grade : Integer) return String is
+		actual_grade : Integer := usr_grade/10;
+	begin 
+		case actual_grade is
+			when 10 | 9 => return "A";
+			when 8 => return "B";
+			when 7 => return "C";
+			when 6 => return "D";
+			when others => return "F";
+		end case;
+	end letterGrade;
+
+begin
+	Put("Enter your grade: ");           -- Prompt for input
+	Get(grade);                   -- Input
+	Put(letterGrade(grade) );                       -- Convert and output
+	New_Line;
+end letter_grades;
+
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ gnatmake letter_grades.adb      
+x86_64-linux-gnu-gcc-7 -c letter_grades.adb
+x86_64-linux-gnu-gnatbind-7 -x letter_grades.ali
+x86_64-linux-gnu-gnatlink-7 letter_grades.ali
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ ./letter_grades 
+Enter your grade: 100
+A
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ ./letter_grades 
+Enter your grade: 98
+A
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ ./letter_grades 
+Enter your grade: 87
+B
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ ./letter_grades 
+Enter your grade: 76
+C
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ ./letter_grades 
+Enter your grade: 62
+D
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ ./letter_grades 
+Enter your grade: 55
+F
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ ./letter_grades 
+Enter your grade: 29
+F
+]0;lvm5@maroon07: ~/214/projects/03[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/03[00m$ exit
+exit
+
+Script done on 2024-02-05 14:18:25-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-02-06 10:39:37-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ cat letter_grades.rb
+# Name: Lily McAboy
+# Date: 02/5/2024
+###############################################################
+
+def letter_grade(grade)
+  usr_grade = grade / 10
+  case usr_grade
+  when 9..10
+    return "A"
+  when 8..9
+    return "B"
+  when 7..8
+    return "C"
+  when 6..7 
+    return "D"
+  else
+    return "F"
+  end
+end
+
+if __FILE__ == $0
+  puts "Enter your grade: "
+  grade = gets.chomp.to_f
+  print "Your letter grade is: "
+  puts letter_grade(grade)
+end
+
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ ruby letter_grades.rb
+Enter your grade: 
+100
+Your letter grade is: A
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ ruby letter_grades.rb
+Enter your grade: 
+98
+Your letter grade is: A
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ ruby letter_grades.rb
+Enter your grade: 
+87
+Your letter grade is: B
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ ruby letter_grades.rb
+Enter your grade: 
+72
+Your letter grade is: C
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ ruby letter_grades.rb
+Enter your grade: 
+66
+Your letter grade is: D
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ ruby letter_grades.rb
+Enter your grade: 
+23
+Your letter grade is: F
+]0;lvm5@remotel1: ~/214/projects/03[01;32mlvm5@remotel1[00m:[01;34m~/214/projects/03[00m$ exit
+exit
+
+Script done on 2024-02-06 10:40:18-05:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-02-06 14:13:48-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="271" LINES="68"]
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ cat letter_Grades.       grades.clj
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Name: Lily McAboy
+;;;; Date: 2/5/2024
+;;;; CS 214 Project 03
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns letter_grades) ; namespace function names the program
+
+(defn letterGrade [usr_grade]
+  (let [grade (int(/ usr_grade 10.0))]
+    (cond
+      (or (= grade 10) (= grade 9)) "A"
+      (= grade 8) "B"
+      (= grade 7) "C"
+      (= grade 6) "D"
+      :else "F"
+      )
+    )
+  )
+
+(defn -main []
+  (println "\nEnter your grade:")
+  (let
+    [ grade (read) ]
+
+    (printf "\nYour letter grade is: ")
+    (println (letterGrade grade))
+    )
+  )
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ clojure -m letter_grades
+
+Enter your grade:
+100
+
+Your letter grade is: A
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ clojure -m letter_grades
+
+Enter your grade:
+95
+
+Your letter grade is: A
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ clojure -m letter_grades
+
+Enter your grade:
+82
+
+Your letter grade is: B
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ clojure -m letter_grades
+
+Enter your grade:
+75
+
+Your letter grade is: C
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ clojure -m letter_grades
+
+Enter your grade:
+62
+
+Your letter grade is: D
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ clojure -m letter_grades
+
+Enter your grade:
+29
+
+Your letter grade is: F
+]0;lvm5@gold07: ~/214/projects/03/clojure/src[01;32mlvm5@gold07[00m:[01;34m~/214/projects/03/clojure/src[00m$ exit
+exit
+
+Script done on 2024-02-06 14:14:30-05:00 [COMMAND_EXIT_CODE="0"]

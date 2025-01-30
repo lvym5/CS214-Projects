@@ -1,0 +1,73 @@
+Script started on 2024-01-20 12:46:06-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="213" LINES="68"]
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ cat circle      rectangle_area.clj
+;;;; compute the area of a rectangle
+;;;; Input: height and width
+;;;; Output: area of circle
+;;;; Created by: Lily McAboy
+;;;; Date: 1/20/2024
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(ns rectangle_area) ;namespace
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function rectangle_area() computes the area of a rectangle
+;;; receiving height and width, where both are positive
+;;; Return the area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn rectangleArea [height width]
+  (* height width) ;Return the area
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;Function: execute our function
+;;;Input: height and width
+;;;output: area
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn -main []
+  (println "To compute the area of a rectangle: \n")
+  (let [height (do (print "Enter the height: ")(flush)(read))
+        width (do(print "Enter the width: ")(flush)(read))] ;do() function found on stack overflow: https://stackoverflow.com/questions/58076459/addition-of-two-numbers-by-taking-user-input
+        (assert(>= width 0) "-main: Width must be positive.")
+        (assert(>= height 0) "-main: Height must be positive.")
+        (printf "\nThe area of the rectangle is %.2f\n\n" (double(rectangleArea height width)))
+    )
+)
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 2
+Enter the width: 3
+
+The area of the rectangle is 6.00
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 4
+Enter the width: 5.5
+
+The area of the rectangle is 22.00
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 16
+Enter the width: 3
+
+The area of the rectangle is 48.00
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ clojure -m rectangle_area
+To compute the area of a rectangle: 
+
+Enter the height: 8
+Enter the width: 3.2
+
+The area of the rectangle is 25.60
+
+]0;lvm5@maroon07: ~/214/projects/01/clojure/src[01;32mlvm5@maroon07[00m:[01;34m~/214/projects/01/clojure/src[00m$ exit
+exit
+
+Script done on 2024-01-20 12:46:55-05:00 [COMMAND_EXIT_CODE="0"]
