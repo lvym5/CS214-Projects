@@ -1,0 +1,69 @@
+V "GNAT Lib v7"
+M P W=b
+P ZX
+
+RN
+RV NO_IO
+RV NO_DEFAULT_INITIALIZATION
+RV SPARK_05
+
+U search%b		search.adb		7fc2cdce NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W search_package%s	search_package.adb	search_package.ali
+
+D ada.ads		20170106103348 76789da1 ada%s
+D a-except.ads		20151016123252 291912d5 ada.exceptions%s
+D a-inteio.ads		20070406091342 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20140225151544 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-tags.ads		20151016130316 01f5e3ef ada.tags%s
+D a-textio.ads		20140717063745 386df5d4 ada.text_io%s
+D a-tiinio.ads		20140717063513 aa04e5d6 ada.text_io.integer_io%s
+D a-unccon.ads		20170106103348 31484697 ada.unchecked_conversion%s
+D interfac.ads		20160502101001 5ab55268 interfaces%s
+D i-cstrea.ads		20140801100435 e53d8b8e interfaces.c_streams%s
+D search.adb		20240415174157 3f766cc6 search%b
+D search_package.ads	20240415173937 8e92dd78 search_package%s
+D system.ads		20170510173650 4635ec04 system%s
+D s-crtl.ads		20141120112812 0ebbdb71 system.crtl%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-ficobl.ads		20140718105747 078245e4 system.file_control_block%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-soflin.ads		20151020124036 14e1eb6c system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stalib.ads		20151112104907 09bd3940 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20160502101423 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20140718092328 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 20e8 12|7r6 7r19 8r5 8r18
+X 3 a-inteio.ads
+18K13*Integer_Text_IO[8|46] 12|7w23 8r22
+X 7 a-textio.ads
+49K13*Text_IO 471e16 12|7w10 8r9
+166U14*New_Line 12|44s21 45s21 46s21 47s21 51s72 54s9 57s9 60s9 63s9
+242U14*Put 12|51s9 53s9 56s9 59s9 62s9
+X 8 a-tiinio.ads
+66U14*Put 12|53s50[3|18] 56s50[3|18] 59s50[3|18] 62s50[3|18]
+X 12 search.adb
+10U11*search 10b11 65l5 65t11
+12r9 List1{13|10R14} 15m14 20m20 20r20 21m20 21r20 22m20 22r20 23m20 23r20
+. 24m20 24r20 44r13 53r65
+12r16 List2{13|10R14} 16m14 26m20 26r20 27m20 27r20 28m20 28r20 29m20 29r20
+. 30m20 30r20 45r13 56r65
+12r23 List3{13|10R14} 17m14 32m20 32r20 33m20 33r20 34m20 34r20 35m20 35r20
+. 36m20 36r20 46r13 59r65
+12r30 List4{13|10R14} 18m14 38m20 38r20 39m20 39r20 40m20 40r20 41m20 41r20
+. 47r13 62r65
+X 13 search_package.ads
+7K9*search_package 12|7w40 8r39 13|80e19
+10R14*List 12|12r38 13|78e27
+19U19*Init 12|15s9 16s9 17s9 18s9
+42U19*Append 12|20s9 21s9 22s9 23s9 24s9 26s9 27s9 28s9 29s9 30s9 32s9 33s9
+. 34s9 35s9 36s9 38s9 39s9 40s9 41s9
+52U19*Put 12|44s9 45s9 46s9 47s9
+59V18*searchFor{integer} 12|53s55 56s55 59s55 62s55
+
